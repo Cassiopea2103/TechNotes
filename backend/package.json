@@ -1,0 +1,8 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The backend of the TechNotes MERN project",
+  "main": "server.js",
+  "author": "Serigne Saliou WADE",
+  "license": "MIT"
+}
