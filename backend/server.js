@@ -41,6 +41,11 @@ app.use(logger)
 // views: 
 app.use('/', require('./routes/rootRoutes'))
 
+// API routes: 
+app.use('/users', require('./routes/userRoutes'))
+app.use('/notes', require('./routes/noteRoutes'))
+
+// 
 app.all('*', require('./routes/rootRoutes'))
 
 // error Handler middleware: 

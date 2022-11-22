@@ -1,0 +1,22 @@
+20/ 11/ 2022	20: 15: 56	64fadda4-4440-4843-938f-5340b056e664	TypeError: Cannot read properties of undefined (reading 'length')	 GET	/users
+    	undefined
+20/ 11/ 2022	20: 16: 29	76d5e3d5-b4ae-490e-8ce6-e1b7588c0eab	TypeError: missing is not a function	 GET	/users
+    	undefined
+20/ 11/ 2022	21: 02: 24	e1395934-c3f7-4c4e-86ab-7c745b9e4b62	SyntaxError: Unexpected token } in JSON at position 69	 POST	/users
+    	undefined
+20/ 11/ 2022	21: 02: 35	cf6ff78b-43ca-48f9-b886-73ea6a5506fd	TypeError: Cannot read properties of undefined (reading 'length')	 POST	/users
+    	undefined
+20/ 11/ 2022	21: 08: 50	5c7ad0c2-4821-4ec6-8151-31cf41a4d541	TypeError: Cannot read properties of undefined (reading 'length')	 POST	/users
+    	undefined
+20/ 11/ 2022	21: 10: 05	082c4e10-d116-40c5-8450-cf3d8407301c	ReferenceError: missingFiel is not defined	 POST	/users
+    	undefined
+22/ 11/ 2022	03: 13: 25	cbde1076-cc43-49f6-bb00-c1a89f084ef2	TypeError: Cannot read properties of undefined (reading 'length')	 PATCH	/users
+    	undefined
+22/ 11/ 2022	03: 24: 08	bdd2c14e-527c-4226-8a7e-2d699d316a3f	CastError: Cast to ObjectId failed for value "1637c406ac4310bb0fec2c311" (type string) at path "_id" for model "User"	 DELETE	/users
+    	undefined
+22/ 11/ 2022	03: 58: 07	3f5f8044-207a-4a43-9617-546caa2020bf	TypeError: Cannot read properties of undefined (reading 'substring')	 DELETE	/notes
+    	undefined
+22/ 11/ 2022	04: 12: 21	8dba4f15-6e1c-4b9e-bcbb-0598e66ef2af	Error: data and hash arguments required	 GET	/users
+    	undefined
+22/ 11/ 2022	04: 12: 26	c02d0a73-c05b-4936-a14f-a794b7eb2e30	Error: data and hash arguments required	 GET	/users
+    	undefined
