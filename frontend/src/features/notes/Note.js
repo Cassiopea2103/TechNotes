@@ -14,7 +14,7 @@ const Note= ({ noteId })=> {
 
     if (note){
 
-        const handleEdit= ()=> navigate(`dash/notes/edit/${noteId}`)
+        const handleEdit= ()=> navigate(`/dash/notes/edit/${noteId}`)
 
         const noteRow= (
             <tr className= 'table__row'>
@@ -35,7 +35,7 @@ const Note= ({ noteId })=> {
                     {note.title}
                 </th>
                 <th className="table__cell note__username">
-                    {note.user}
+                    {note.username}
                 </th>
                 <th className="table__cell">
                     <button

@@ -2,7 +2,6 @@ import { useGetAllNotesQuery } from "./notesApiSlice"
 
 import Note from './Note'
 
-
 const NotesList= ()=> {
 
     const {
@@ -11,9 +10,14 @@ const NotesList= ()=> {
         isSuccess,
         isError, 
         error
-    }= useGetAllNotesQuery()
-
-    
+    }= useGetAllNotesQuery(
+        undefined,
+        {
+            pollingInterval: 60000,
+            refetchOnFocus: true,
+            refetchOnMountOrArgChange: true
+        }
+    )
 
     let content 
 

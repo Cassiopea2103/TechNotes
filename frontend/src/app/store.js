@@ -15,4 +15,4 @@ export const store= configureStore(
     }
 )
 
-store.dispatch(setupListeners())
+setupListeners(store.dispatch)

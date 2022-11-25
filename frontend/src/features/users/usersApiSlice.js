@@ -99,19 +99,19 @@ export const {
     useDeleteUserMutation
 }= usersApiSlice
 
-// query object : 
+// query object: 
 const fetchUsersQueryObject= usersApiSlice.endpoints.getAllUsers.select()
 
-// memoized selector data: 
+// query data: memoized selector: 
 const fetchUsersQueryData= createSelector(
-    [fetchUsersQueryObject],
+    [ fetchUsersQueryObject ],
     queryObject=> queryObject.data
 )
 
-// user adapter selectors: 
+// usersAdapter selectors: 
 export const {
     selectAll: selectAllUsers,
     selectById: selectUserById,
     selectEntities: selectUserEntities,
     selectIds: selectUserIds
-}= usersAdapter.getSelectors(state=>  fetchUsersQueryData(state) ?? initialState)
+}= usersAdapter.getSelectors(state=> fetchUsersQueryData(state) ?? initialState)
