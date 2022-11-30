@@ -42,7 +42,7 @@ const createUser= asyncHandler(
             
             return response.status(400).json(
                 {
-                    "Bad request": "All fields are required!"
+                    "message": "All fields are required!"
                 }
             )
         }
@@ -53,7 +53,7 @@ const createUser= asyncHandler(
         if (duplicate){
             return response.status(409).json(
                 {
-                    "Conflict": "A user with the same username already exist!"
+                    "message": "A user with the same username already exist!"
                 }
             )
         }
@@ -65,7 +65,7 @@ const createUser= asyncHandler(
         const userObject= {
             "username": username,
             "password": hashedPassword,
-            roles: roles
+            "roles": roles
         }
 
         const user= await User.create(userObject)
@@ -128,7 +128,7 @@ const updateUser= asyncHandler(
         if (impossibleUpdate){
             return response.status(409).json(
                 {
-                    "Conflict": `A user with the username ${username} already exists`
+                    "message": `A user with the username ${username} already exists`
                 }
             )
         }
@@ -178,7 +178,7 @@ const deleteUser= asyncHandler(
         if (!foundUser){
             return response.status(404).json(
                 {
-                    "Not found": `User with ID ${id} not found in the database!`
+                    "message": `User with ID ${id} not found in the database!`
                 }
             )
         }
@@ -190,8 +190,7 @@ const deleteUser= asyncHandler(
             // we can't delete the user: 
             return response.status(401).json(
                 {
-                    "Forbidden": "User has assigned notes!",
-                    "Notes": notes
+                    "message": "User has assigned notes!"
                 }
             )
         }

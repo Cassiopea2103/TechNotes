@@ -42,6 +42,7 @@ app.use(logger)
 app.use('/', require('./routes/rootRoutes'))
 
 // API routes: 
+app.use('/auth', require('./routes/authRoutes'))
 app.use('/users', require('./routes/userRoutes'))
 app.use('/notes', require('./routes/noteRoutes'))
 
