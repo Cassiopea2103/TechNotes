@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-const Note= ({ noteId })=> {
+const Note= ({ noteId, noteUser })=> {
 
     const navigate= useNavigate()
     
@@ -35,7 +35,7 @@ const Note= ({ noteId })=> {
                     {note.title}
                 </th>
                 <th className="table__cell note__username">
-                    {note.username}
+                    {'noteUser'}
                 </th>
                 <th className="table__cell">
                     <button

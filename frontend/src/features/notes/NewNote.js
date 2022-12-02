@@ -7,12 +7,10 @@ const NewNote= ()=> {
 
     const users= useSelector(selectAllUsers)
 
-    const content= users 
+    const content= users.length
                  ? <NewNoteForm users= { users } />
-                 : <>
-                      <h1>Impossible to create a note</h1>
-                      <p>No users found in the database!</p>
-                   </>
+                 :
+                    <h1>Impossible to create a note for the moment</h1>
 
     return content
 }

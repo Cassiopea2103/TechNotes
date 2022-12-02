@@ -34,7 +34,10 @@ const NotesList= ()=> {
         const { ids }= notes 
 
         const tableContent= ids?.length 
-                          ? ids.map((noteId)=> <Note key= {noteId} noteId= {noteId}/>)
+                          ? ids.map((noteId)=> <Note 
+                                                    key= {noteId} 
+                                                    noteId= {noteId}
+                                                />)
                           : null
 
         content= (

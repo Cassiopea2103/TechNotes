@@ -21,6 +21,7 @@ export const notesApiSlice= apiSlice.injectEndpoints(
                 getAllNotes: builder.query({
                     query: ()=> '/notes',
                     transformResponse: responseData=> {
+                        
                         const loadedNotes= responseData.map((note)=> {
                             note.id= note._id 
 
