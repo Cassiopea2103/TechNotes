@@ -1,12 +1,14 @@
+require('dotenv').config()
+
 const jwt= require('jsonwebtoken')
 
 const verifyJWT= ( request, response, next )=> {
 
     // retrieve authorization headers 
-    const authHeaders= request.headers.authorization || request.headers.Authorization 
+    const authHeaders= request.headers.authorization || request.headers.Authorization
 
     // check Bearer authHeaders ( supports the token ): 
-    if ( !authHeaders.startsWith('Bearer ')){
+    if ( !authHeaders?.startsWith('Bearer ')){
         return response.status(401).json(
             {
                 message: "Unauthorized. You don't have a token!"
@@ -15,7 +17,7 @@ const verifyJWT= ( request, response, next )=> {
     }
 
     // get the token from authHeaders: 
-    const token= authHeaders.split(' ')[1]
+    const token= authHeaders.split(' ')[1]    
 
     // verify the token: 
     jwt.verify(
@@ -25,7 +27,7 @@ const verifyJWT= ( request, response, next )=> {
             if ( error ){
                 return response.status(403).json(
                     {
-                        message: "Forbidden. An error occured"
+                        message: `Forbidden! ${ error }`
                     }
                 )
             }

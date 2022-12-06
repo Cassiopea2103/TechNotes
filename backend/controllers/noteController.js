@@ -15,7 +15,7 @@ const getAllNotes= asyncHandler(
         if (!notes.length){
             return response.status(404).json(
                 {
-                    "Not found": "No notes found in the database!"
+                    "message": "No notes found in the database!"
                 }
             )
         }
@@ -40,7 +40,7 @@ const createNote= asyncHandler(
         if (invalid){
             return response.status(400).json(
                 {
-                    "Bad request": "All fields are required!"
+                    "message": "All fields are required!"
                 }
             )
         }
@@ -58,14 +58,14 @@ const createNote= asyncHandler(
             // then the note was created: 
             response.status(201).json(
                 {
-                    "Created": `Note ${note.title.substring(0, 25)}... successfully created`
+                    "message": `Note ${note.title.substring(0, 25)}... successfully created`
                 }
             )
         }
         else {
             response.status(400).json(
                 {
-                    "Error": "An error occured while creating note!"
+                    "message": "An error occured while creating note!"
                 }
             )
         }
@@ -87,7 +87,7 @@ const updateNote= asyncHandler(
         if (invalid){
             return response.status(400).json(
                 {
-                    "Bad request": "All fields are required!"
+                    "message": "All fields are required!"
                 }
             )
         }
@@ -99,7 +99,7 @@ const updateNote= asyncHandler(
         if (!foundNote){
             return response.status(404).json(
                 {
-                    "Not found": `Note with ID ${id} not found!`
+                    "message": `Note with ID ${id} not found!`
                 }
             )
         }
@@ -109,7 +109,7 @@ const updateNote= asyncHandler(
         if (!noteUser){
             return response.status(400).json(
                 {
-                    "Not found": `There's no user with ID ${user} in the database!`
+                    "message": `There's no user with ID ${user} in the database!`
                 }
             )
         }
@@ -123,7 +123,7 @@ const updateNote= asyncHandler(
 
         response.status(201).json(
             {
-                "Updated": `Note with the title ${foundNote.title.substring(0, 25)}... updated!`
+                "message": `Note with the title ${foundNote.title.substring(0, 25)}... updated!`
             }
         )
     }
@@ -142,7 +142,7 @@ const deleteNote= asyncHandler(
         if (!id) {
             return response.status(400).json(
                 {
-                    "Bad request": "ID of note to be deleted is required!"
+                    "message": "ID of note to be deleted is required!"
                 }
             )
         }
@@ -153,7 +153,7 @@ const deleteNote= asyncHandler(
         if (!foundNote){
             return response.status(404).json(
                 {
-                    "Not found": `Note with ID ${id} not found!`
+                    "message": `Note with ID ${id} not found!`
                 }
             )
         }
@@ -162,7 +162,7 @@ const deleteNote= asyncHandler(
 
         response.json(
             {
-                "Deleted": `Note ${deletedNote.title.substring(0, 10)}... with ID ${deletedNote._id} deleted!`
+                "message": `Note ${deletedNote.title.substring(0, 10)}... with ID ${deletedNote._id} deleted!`
             }
         )
     }

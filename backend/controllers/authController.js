@@ -57,7 +57,7 @@ const login = asyncHandler(
             },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresIn: '1d'
+                expiresIn: '30s'
             }
         )
 
@@ -68,7 +68,7 @@ const login = asyncHandler(
             },
             process.env.REFRESH_TOKEN_SECRET,
             {
-                expiresIn: 30* 24* 60* 60* 1000
+                expiresIn: '60s'
             }
         )
 
@@ -80,12 +80,12 @@ const login = asyncHandler(
                 httpOnly: true,
                 secure: true,
                 sameSite: 'None',
-                maxAge: 30* 24* 60* 60* 1000
+                maxAge: 60000
             }
         )
 
         // send the access token as request response 
-        response.status(201).json( accessToken )
+        return response.status(201).json( accessToken )
     }
 )
 
@@ -143,7 +143,7 @@ const refresh= asyncHandler(
                         },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: '1d'
+                            expiresIn: '30s'
                         }
                     )
 
@@ -162,11 +162,15 @@ const logout= asyncHandler(
     async( request, response )=> {
 
         // retrieve request cookies 
-        const cookies= request.cookies 
+        const cookies= request.cookies
         
         // verify refreshToken cookie 
         if ( !cookies?.refreshToken ){
-            return response.status(204)
+            return response.status(200).json(
+                {
+                    message: "No content"
+                }
+            )
         }
 
         // clear the refresh token cookie 
