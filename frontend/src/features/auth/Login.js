@@ -2,10 +2,12 @@ import { useLoginMutation } from "./authApiSlice"
 
 import { useState, useEffect, useRef } from 'react'
 
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import { useDispatch } from "react-redux"
 import { setCredentials } from "./authSlice"
+
+import { usePersist } from "../../hooks/usePersist"
 
 const Login= ()=> {
 
@@ -23,12 +25,15 @@ const Login= ()=> {
     const userRef= useRef()
     const errorRef= useRef()
 
+    const [ persist, setPersist ]= usePersist()
+
     const [ username, setUsername ]= useState('')
     const [ password, setPassword ]= useState('')
     const [ errorMessage, setErrorMessage ]= useState('')
 
     const onUsernameChange= e=> setUsername( e.target.value )
     const onPasswordChange= e=> setPassword( e.target.value )
+    const onPersistChange= ()=> setPersist(previous=> !previous)
     
     useEffect(
         ()=> {
@@ -49,8 +54,8 @@ const Login= ()=> {
     const handleLogin= async( e )=> {
         e.preventDefault()
         try{
-            const accessToken= await loginUser({ username, password }).unwrap()
-            dispatch( setCredentials( { accessToken } ))
+            const token = await loginUser({ username, password }).unwrap()
+            await dispatch( setCredentials( token ))
             setUsername('')
             setPassword('')
             navigate('/dash')
@@ -126,6 +131,18 @@ const Login= ()=> {
                         onChange= { onPasswordChange }
                         autoComplete= 'off'
                     />
+
+                    <label htmlFor="persist" className="form__persist">
+                        <input 
+                            type="checkbox" 
+                            name= 'persist'
+                            id= 'persist'
+                            className= 'form__checkbox'
+                            checked= { persist }
+                            onChange= { onPersistChange }
+                        />
+                        Save your login infos
+                    </label>
 
                     <button
                         className= 'form__submit-button'

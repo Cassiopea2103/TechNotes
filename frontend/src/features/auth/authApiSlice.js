@@ -1,6 +1,6 @@
 import { apiSlice } from "../../app/api/apiSlice";
 
-import { logout } from "./authSlice";
+import { logout, setCredentials } from "./authSlice";
 
 // queries to communicate with auth endpoints of the server 
 export const authApiSlice= apiSlice.injectEndpoints({
@@ -15,8 +15,22 @@ export const authApiSlice= apiSlice.injectEndpoints({
             })
         }),
 
-        refresh: builder.query({
-            query: ()=> '/auth/refresh'
+        refresh: builder.mutation({
+            query: ()=> ({
+                url: '/auth/refresh',
+                method: 'GET'
+            }),
+            async onQueryStarted(args, { dispatch, queryFulfilled }){
+                try{ 
+                    const response= await queryFulfilled 
+    
+                    const { data }= response 
+                    dispatch(setCredentials ( data ))
+                }
+                catch( error ){
+                    console.log(error)
+                }
+            }
         }),
 
         sendLogout: builder.mutation({
@@ -27,12 +41,17 @@ export const authApiSlice= apiSlice.injectEndpoints({
             async onQueryStarted( arg, { dispatch, queryFulfilled }){
                 try {
                     // await query to be fulfilled
-                    const response= await queryFulfilled 
-                    console.log(response)
+                    const result= await queryFulfilled 
+                    console.log(result)
 
                     // initiate the logout action creator to set token to null 
                     dispatch( logout() )
-                    dispatch ( apiSlice.util.resetApiState() )
+                    setTimeout(
+                        ()=> {
+                            dispatch ( apiSlice.util.resetApiState() )
+                        },
+                        2000
+                    )
                 }
                 catch( error ){
                     console.log( error )
@@ -44,6 +63,6 @@ export const authApiSlice= apiSlice.injectEndpoints({
 
 export const { 
     useLoginMutation,
-    useRefreshQuery,
+    useRefreshMutation,
     useSendLogoutMutation
 }= authApiSlice

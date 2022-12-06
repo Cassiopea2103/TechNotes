@@ -11,9 +11,9 @@ const NotesList= ()=> {
         isError, 
         error
     }= useGetAllNotesQuery(
-        undefined,
+        'Notes',
         {
-            pollingInterval: 60000,
+            pollingInterval: 5000,
             refetchOnFocus: true,
             refetchOnMountOrArgChange: true
         }
@@ -30,7 +30,7 @@ const NotesList= ()=> {
     }
 
     if ( isSuccess ){
-        
+
         const { ids }= notes 
 
         const tableContent= ids?.length 

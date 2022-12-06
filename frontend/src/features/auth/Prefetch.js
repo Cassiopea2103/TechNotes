@@ -14,7 +14,7 @@ const Prefetch= ()=> {
             console.log('subscribing')
             const users= store.dispatch(usersApiSlice.endpoints.getAllUsers.initiate())
             const notes= store.dispatch(notesApiSlice.endpoints.getAllNotes.initiate())
-
+            
             return ()=> {
                 console.log('unsubscribing...')
                 users.unsubscribe()

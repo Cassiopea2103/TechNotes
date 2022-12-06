@@ -6,6 +6,7 @@ import DashLayout from './components/DashLayout';
 
 // auth 
 import Login from './features/auth/Login';
+import PersistLogin from './features/auth/PersistLogin';
 import Welcome from './features/auth/Welcome';
 import Prefetch from './features/auth/Prefetch';
 
@@ -33,17 +34,19 @@ function App() {
 				
 					<Route index element= {<Welcome/>} />
 
-					<Route element= {<Prefetch/>} >
-						<Route path= 'users'>
-							<Route index element= {<UsersList/>} />
-							<Route path= 'new' element= {<NewUserForm/>} />
-							<Route path= 'edit/:userId' element= {<EditUser/>} />
-						</Route>
+					<Route element= {<PersistLogin/>} >
+						<Route element= {<Prefetch/>} >
+							<Route path= 'users'>
+								<Route index element= {<UsersList/>} />
+								<Route path= 'new' element= {<NewUserForm/>} />
+								<Route path= 'edit/:userId' element= {<EditUser/>} />
+							</Route>
 
-						<Route path= 'notes'>
-							<Route index element= {<NotesList/>	} />
-							<Route path= 'new' element= {<NewNote/>} />
-							<Route path= 'edit/:noteId' element= {<EditNote/>} />
+							<Route path= 'notes'>
+								<Route index element= {<NotesList/>	} />
+								<Route path= 'new' element= {<NewNote/>} />
+								<Route path= 'edit/:noteId' element= {<EditNote/>} />
+							</Route>
 						</Route>
 					</Route>
 

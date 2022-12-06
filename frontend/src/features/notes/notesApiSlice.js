@@ -31,7 +31,7 @@ export const notesApiSlice= apiSlice.injectEndpoints(
                         return notesAdapter.setAll(initialState, loadedNotes)
                     },
                     providesTags: (result, error, arg)=> {
-                        if (result.ids){
+                        if (result?.ids){
                             return [
                                 {
                                     type: 'Notes',

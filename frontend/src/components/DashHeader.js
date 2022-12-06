@@ -53,9 +53,7 @@ const DashHeader= ()=> {
         <button
             className= 'icon-button'
             title= 'Logout'
-            onClick= { ()=> {
-                sendLogout()
-            } }
+            onClick= { ()=>sendLogout() }
         >
             <FontAwesomeIcon
                 icon= { faRightFromBracket }

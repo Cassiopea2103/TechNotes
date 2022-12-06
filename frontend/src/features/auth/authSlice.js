@@ -11,7 +11,7 @@ const authSlice= createSlice(
         reducers: {
             // set the token state 
             setCredentials: ( state, action )=> {
-                state.token= action.payload 
+                state.token= action.payload
             },
 
             // set the token to null after logout 
