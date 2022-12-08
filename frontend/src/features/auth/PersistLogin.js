@@ -11,7 +11,7 @@ import { useRefreshMutation } from "./authApiSlice";
 
 const PersistLogin= ()=> {
 
-    const token= useSelector(selectCurrentToken)
+    let token= useSelector( selectCurrentToken )
 
     const [
         refresh,

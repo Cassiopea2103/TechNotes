@@ -6,13 +6,15 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
-const Note= ({ noteId, noteUser })=> {
+const Note= ({ noteId, users })=> {
 
     const navigate= useNavigate()
     
     const note= useSelector(state=> selectNoteById(state, noteId))
-
+    
     if (note){
+        
+        const noteUser= Object.values( users ).filter((user)=> user.id=== note.user )[0]
 
         const handleEdit= ()=> navigate(`/dash/notes/edit/${noteId}`)
 
@@ -35,7 +37,7 @@ const Note= ({ noteId, noteUser })=> {
                     {note.title}
                 </th>
                 <th className="table__cell note__username">
-                    {'noteUser'}
+                    { noteUser.username }
                 </th>
                 <th className="table__cell">
                     <button

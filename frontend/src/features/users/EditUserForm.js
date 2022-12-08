@@ -212,6 +212,7 @@ const EditUserForm= ({ user })=> {
                         checked= { active }
                         onChange= { onActiveChange }
                     />
+                    Active
                 </label>
             </form>
         </>

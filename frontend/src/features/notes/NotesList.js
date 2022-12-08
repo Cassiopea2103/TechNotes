@@ -1,8 +1,15 @@
 import { useGetAllNotesQuery } from "./notesApiSlice"
 
+import { useAuth } from "../../hooks/useAuth"
+
+import { useSelector } from "react-redux"
+import { getUsers } from "../users/usersSlice"
+
 import Note from './Note'
 
 const NotesList= ()=> {
+
+    const { id, isManager, isAdmin } = useAuth()
 
     const {
         data: notes,
@@ -13,11 +20,13 @@ const NotesList= ()=> {
     }= useGetAllNotesQuery(
         'Notes',
         {
-            pollingInterval: 5000,
+            pollingInterval: 30000,
             refetchOnFocus: true,
             refetchOnMountOrArgChange: true
         }
     )
+
+    const users= useSelector( getUsers )
 
     let content 
 
@@ -31,14 +40,24 @@ const NotesList= ()=> {
 
     if ( isSuccess ){
 
-        const { ids }= notes 
+        const { ids, entities }= notes 
 
-        const tableContent= ids?.length 
-                          ? ids.map((noteId)=> <Note 
+        // accessing only notes of the user if he got Employee status: 
+        let filteredIds 
+        if ( isManager || isAdmin ){
+            filteredIds= [ ...ids ]
+        }
+        else { 
+            filteredIds= ids.filter((noteId)=> 
+                entities[noteId].user=== id
+            )
+        }
+
+        const tableContent= ids?.length&& filteredIds.map((noteId)=> <Note 
                                                     key= {noteId} 
                                                     noteId= {noteId}
-                                                />)
-                          : null
+                                                    users= { users }
+                                                    />)
 
         content= (
             <table className= 'table table--notes'>
