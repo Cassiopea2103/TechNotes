@@ -52,12 +52,13 @@ const login = asyncHandler(
             {
                 userInfo: {
                     "username": username,
-                    "roles": foundUser.roles
+                    "roles": foundUser.roles,
+                    "id": foundUser._id
                 }
             },
             process.env.ACCESS_TOKEN_SECRET,
             {
-                expiresIn: '30s'
+                expiresIn: '15m'
             }
         )
 
@@ -68,7 +69,7 @@ const login = asyncHandler(
             },
             process.env.REFRESH_TOKEN_SECRET,
             {
-                expiresIn: '60s'
+                expiresIn: '7d'
             }
         )
 
@@ -80,7 +81,7 @@ const login = asyncHandler(
                 httpOnly: true,
                 secure: true,
                 sameSite: 'None',
-                maxAge: 60000
+                maxAge: 7* 24* 60* 60* 1000
             }
         )
 
@@ -138,12 +139,13 @@ const refresh= asyncHandler(
                         {
                             userInfo: {
                                 "username": foundUser.username,
-                                "roles": foundUser.roles
+                                "roles": foundUser.roles,
+                                "id": foundUser._id
                             }
                         },
                         process.env.ACCESS_TOKEN_SECRET,
                         {
-                            expiresIn: '30s'
+                            expiresIn: '15m'
                         }
                     )
 
