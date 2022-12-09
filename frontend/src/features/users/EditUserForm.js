@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faSave, faTrashCan } from '@fortawesome/free-solid-svg-icons'
 
 const EditUserForm= ({ user })=> {
-
+    
     const navigate= useNavigate()
 
     const [
@@ -40,7 +40,7 @@ const EditUserForm= ({ user })=> {
     const [ validUsername, setValidUsername ]= useState( false )
     const [ password, setPassword ]= useState('')
     const [ validPassword, setValidPassword ]= useState( false )
-    const [ roles, setRoles ]= useState( user.roles )
+    const [ roles, setRoles ]= useState( user.roles)
     const [ active, setActive ]= useState( user.active )
 
     const onUsernameChange= e=> setUsername(e.target.value)

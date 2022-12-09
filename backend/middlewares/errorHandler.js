@@ -15,7 +15,8 @@ const errorHandler= (error ,request, response, next)=> {
     
     response.json(
         {
-            "Message": error.message
+            "Message": error.message,
+            isError: true
         }
     )
 

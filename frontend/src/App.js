@@ -24,8 +24,11 @@ import EditNote from './features/notes/EditNote';
 // allowed Roles 
 import { ROLES } from './config/roles'; 
 
+import { useTitle } from './hooks/useTitle';
 
 function App() {
+
+  useTitle('TechNotes')
   
   return (
       <Routes >

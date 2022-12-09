@@ -2,8 +2,6 @@ import { useGetAllNotesQuery } from "./notesApiSlice"
 
 import { useAuth } from "../../hooks/useAuth"
 
-import { useSelector } from "react-redux"
-import { getUsers } from "../users/usersSlice"
 
 import Note from './Note'
 
@@ -25,8 +23,6 @@ const NotesList= ()=> {
             refetchOnMountOrArgChange: true
         }
     )
-
-    const users= useSelector( getUsers )
 
     let content 
 
@@ -56,7 +52,6 @@ const NotesList= ()=> {
         const tableContent= ids?.length&& filteredIds.map((noteId)=> <Note 
                                                     key= {noteId} 
                                                     noteId= {noteId}
-                                                    users= { users }
                                                     />)
 
         content= (

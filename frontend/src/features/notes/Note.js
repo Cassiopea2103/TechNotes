@@ -1,20 +1,45 @@
-import { useSelector } from "react-redux";
-import { selectNoteById } from "./notesApiSlice";
+import { useGetAllNotesQuery } from "./notesApiSlice";
+
+import { useGetAllUsersQuery } from "../users/usersApiSlice";
 
 import { useNavigate } from "react-router-dom";
+
+import { useAuth } from "../../hooks/useAuth";
+
+import { memo } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 
 const Note= ({ noteId, users })=> {
 
+    const { id }= useAuth()
+
+    const { note }= useGetAllNotesQuery(
+        'notesList',
+        {
+            selectFromResult: ({ data })=> ({
+                note: data?.entities[ noteId ]
+            })
+        }
+    )
+
+    const { noteUser } = useGetAllUsersQuery(
+        'usersList', 
+        {
+            selectFromResult: ({ data })=> ({
+                noteUser: data?.entities[id].username
+            })
+        }
+    )
+
     const navigate= useNavigate()
     
-    const note= useSelector(state=> selectNoteById(state, noteId))
+    
     
     if (note){
         
-        const noteUser= Object.values( users ).filter((user)=> user.id=== note.user )[0]
+        // const noteUser= Object.values( users ).filter((user)=> user.id=== note.user )[0]
 
         const handleEdit= ()=> navigate(`/dash/notes/edit/${noteId}`)
 
@@ -37,7 +62,7 @@ const Note= ({ noteId, users })=> {
                     {note.title}
                 </th>
                 <th className="table__cell note__username">
-                    { noteUser.username }
+                    { noteUser }
                 </th>
                 <th className="table__cell">
                     <button
@@ -61,4 +86,6 @@ const Note= ({ noteId, users })=> {
     }
 }
 
-export default Note
+const memoizedNote= memo(Note)
+
+export default memoizedNote 

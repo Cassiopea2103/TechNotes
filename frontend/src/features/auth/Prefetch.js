@@ -11,15 +11,10 @@ const Prefetch= ()=> {
 
     useEffect(
         ()=> {
-            console.log('subscribing')
-            const users= store.dispatch(usersApiSlice.endpoints.getAllUsers.initiate())
-            const notes= store.dispatch(notesApiSlice.endpoints.getAllNotes.initiate())
             
-            return ()=> {
-                console.log('unsubscribing...')
-                users.unsubscribe()
-                notes.unsubscribe()
-            }
+            store.dispatch( notesApiSlice.util.prefetch('getAllNotes', 'notesList', { force: true}))
+            store.dispatch( usersApiSlice.util.prefetch( 'getAllUsers', 'usersList', { force: true}))
+            
         }, 
         []
     )

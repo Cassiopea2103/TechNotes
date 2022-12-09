@@ -36,7 +36,7 @@ const createUser= asyncHandler(
 
         const { username, password, roles }= request.body 
 
-        const invalid= !username || !password || !Array.isArray(roles) || !roles.length
+        const invalid= !username || !password
 
         if (invalid){
             
@@ -48,7 +48,7 @@ const createUser= asyncHandler(
         }
         
         // verify duplicates: 
-        const duplicate= await User.findOne({"username": username}).lean().exec()
+        const duplicate= await User.findOne({"username": username}).collation({locatiion: 'en', strength: 2}).lean().exec()
 
         if (duplicate){
             return response.status(409).json(
@@ -62,11 +62,17 @@ const createUser= asyncHandler(
         const hashedPassword= await bcrypt.hash(password, 10)
         
         // create and save the user in the database: 
-        const userObject= {
-            "username": username,
-            "password": hashedPassword,
-            "roles": roles
-        }
+        const userObject= (!Array.isArray( roles ) || roles.length )
+                        ? {
+                            "username": username,
+                            "password": hashedPassword
+                        } 
+                        :
+                        {
+                            "username": username,
+                            "password": hashedPassword,
+                            "roles": roles
+                        }
 
         const user= await User.create(userObject)
 
@@ -121,7 +127,7 @@ const updateUser= asyncHandler(
         }
 
         // find duplicates for the username: 
-        const duplicate= await User.findOne({"username": foundUser.username}).lean().exec()
+        const duplicate= await User.findOne({"username": foundUser.username}).collation({locatiion: 'en', strength: 2}).lean().exec()
         
         // check if the duplicate has the same id as the request id data:
         const impossibleUpdate= duplicate && duplicate._id.toString() !== id 

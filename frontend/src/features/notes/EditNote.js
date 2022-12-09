@@ -2,14 +2,20 @@ import EditNoteForm from './EditNoteForm'
 
 import { useParams } from "react-router-dom"
 
-import { useSelector } from "react-redux"
-import { selectNoteById } from "./notesApiSlice"
+import { useGetAllNotesQuery } from './notesApiSlice'
 
 const EditNote= ()=> {
 
     const { noteId }= useParams()
 
-    const note= useSelector(state=> selectNoteById(state, noteId))
+    const { note }= useGetAllNotesQuery(
+        'notesList',
+        {
+            selectFromResult: ({ data })=> ({
+                note: data?.entities[ noteId ]
+            })
+        }
+    )
 
     const content= note 
                  ? <EditNoteForm note= {note}/>

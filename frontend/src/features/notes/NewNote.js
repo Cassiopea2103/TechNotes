@@ -1,11 +1,29 @@
 import NewNoteForm from "./NewNoteForm";
 
-import { useSelector } from "react-redux";
-import { selectAllUsers } from "../users/usersApiSlice";
+import { useGetAllUsersQuery } from "../users/usersApiSlice";
+
+import PulseLoader from "react-spinners/PulseLoader";
+
+import { memo } from "react";
 
 const NewNote= ()=> {
 
-    const users= useSelector(selectAllUsers)
+    const { users }= useGetAllUsersQuery(
+        'usersList',
+        { 
+            selectFromResult: ({ data })=> ({
+                users: data?.ids.map(( userId )=> data?.entities[userId])
+            })
+        }
+    )
+
+    if ( !users?.length ){
+        return (
+            <PulseLoader
+                color="#fff"
+            />
+        )
+    }
 
     const content= users.length
                  ? <NewNoteForm users= { users } />
@@ -15,4 +33,6 @@ const NewNote= ()=> {
     return content
 }
 
-export default NewNote
+const memoizedNewNote= memo(NewNote)
+
+export default memoizedNewNote
